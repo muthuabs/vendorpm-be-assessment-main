@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { join } from 'path';
-import {config}  from 'dotenv'
+import { config } from 'dotenv';
 import { User } from './entities/User';
 import { Post } from './entities/Post';
 import { OptimisticLockingSubscriber } from './entities/subscribers/OptimisticLockingSubscriber';
@@ -21,7 +21,7 @@ const prodConfig: Partial<DataSourceOptions> = {
   password: process.env.DB_PASSWORD || 'pmvendor',
   database: process.env.DB_NAME || 'pmvendor',
   migrationsRun: false,
-  synchronize: true
+  synchronize: true,
 };
 
 const mainConfig: DataSourceOptions = {
