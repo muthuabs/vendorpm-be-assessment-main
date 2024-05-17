@@ -1,0 +1,27 @@
+@baseUrl = http://localhost:3001
+
+### Without parameters
+GET {{baseUrl}}/users HTTP/1.1
+
+### partial parameters
+GET {{baseUrl}}/users?pageSize=2 HTTP/1.1
+
+### all parameters
+GET {{baseUrl}}/users?page=0&pageSize=2 HTTP/1.1
+
+
+### GetUserByID
+GET {{baseUrl}}/users/2 HTTP/1.1
+
+### DeleteUserByID
+DELETE {{baseUrl}}/users/4 HTTP/1.1
+
+### UpdateUserByID
+PATCH {{baseUrl}}/users/2 HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Update first name",
+    "lastName": "Update last name"
+}
+

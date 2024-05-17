@@ -1,0 +1,10 @@
+.idea/
+.vscode/
+node_modules/
+build/
+tmp/
+temp/.build/
+.build/
+database.sqlite
+.tsbuildinfo
+coverage

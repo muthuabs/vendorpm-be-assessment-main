@@ -1,0 +1,21 @@
+name: Test, Lint & Build
+
+on: 
+  push:
+    # only trigger on branches, not on tags
+    branches: '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mark directory as safe # checkout v3 bug related to CVE-2022-24765
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: Install dependencies
+        run: yarn install
+      - name: Run linting
+        run: yarn run lint && yarn run test
+      - name: Run test
+        run: yarn run test
+

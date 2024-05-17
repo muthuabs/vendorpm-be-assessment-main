@@ -1,0 +1,39 @@
+@baseUrl = http://localhost:3001
+@usersPostBaseUrl = {{baseUrl}}/users/1
+
+
+### Create user's posts
+PUT {{usersPostBaseUrl}}/posts HTTP/1.1
+content: application/json
+
+{
+    "idempotentId": "idempotentId-6",
+    "title": "Title",
+    "body": "Body"
+}
+
+### Get all user's posts
+GET {{usersPostBaseUrl}}/posts HTTP/1.1
+
+### Get post by Id
+GET {{usersPostBaseUrl}}/posts/3 HTTP/1.1
+
+### Delete post by Id
+DELETE {{usersPostBaseUrl}}/posts/7 HTTP/1.1
+
+### Update post by Id
+PATCH {{usersPostBaseUrl}}/posts/6 HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Update title"
+}
+
+### search posts by keyword
+GET {{baseUrl}}/posts/search?keyword=Update HTTP/1.1
+content-type: application/json
+
+###
+GET {{baseUrl}}/posts/search?keyword=invalid HTTP/1.1
+content-type: application/json
+

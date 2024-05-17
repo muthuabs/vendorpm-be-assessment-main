@@ -1,0 +1,99 @@
+service: beAssignment
+frameworkVersion: '3'
+configValidationMode: error
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  memorySize: 256
+  region: ca-central-1
+
+useDotenv: true
+
+functions:
+  getUsers:
+    handler: handler.getUsersHandler
+    name: beAssignment-getUsers
+    events:
+      - httpApi:
+          path: /users
+          method: get
+
+  updateUsers:
+    handler: handler.updateUsersByIdHandler
+    name: beAssignment-updateUsers
+    events:
+      - httpApi:
+          path: /users/{userId}
+          method: patch
+  
+  deleteUserById:
+    handler: handler.deleteUsersByIdHandler
+    name: beAssignment-deleteUserById
+    events:
+      - httpApi:
+          path: /users/{userId}
+          method: delete
+
+  getUserById:
+    handler: handler.getUsersByIdHandler
+    name: beAssignment-getUserById
+    events:
+      - httpApi:
+          path: /users/{userId}
+          method: get
+
+  getPostsByUserId:
+    handler: handler.getPostsByUserIdHandler
+    name: beAssignment-getPostsByUserId
+    events:
+      - httpApi:
+          path: /users/{userId}/posts
+          method: get
+
+  createPost:
+    handler: handler.createPostsHandler
+    name: beAssignment-createPost
+    events:
+      - httpApi:
+          path: /users/{userId}/posts
+          method: put
+
+  getPostById:
+    handler: handler.getPostsByIdHandler
+    name: beAssignment-getPostById
+    events:
+      - httpApi:
+          path: /users/{userId}/posts/{postId}
+          method: get
+  
+  deletePostById:
+    handler: handler.deletePostByIdHandler
+    name: beAssignment-deletePostById
+    events:
+      - httpApi:
+          path: /users/{userId}/posts/{postId}
+          method: delete
+
+  updatePostById:
+    handler: handler.updatePostByIdByIdHandler
+    name: beAssignment-updatePostById
+    events:
+      - httpApi:
+          path: /users/{userId}/posts/{postId}
+          method: patch
+  
+  getPostsByTitle:
+    handler: handler.getPostsByTitleHandler
+    name: beAssignment-searchPosts
+    events:
+      - httpApi:
+          path: /posts/search
+          method: get
+
+
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
+  - serverless-dotenv-plugin
