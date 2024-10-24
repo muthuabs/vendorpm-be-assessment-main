@@ -9,6 +9,14 @@ import {
 import { parseAPIGatewayEventBody } from './eventParser';
 import { jsonResp } from './responseHelpers';
 import { setupLogger } from './logger';
+import kafkaMockup from './kafkaMockup';
+
+const kafka = new kafkaMockup({
+  clientId: 'my-app',
+  brokers: ['localhost:9092'], // Replace with your Kafka brokers
+});
+
+const producer = kafka.producer();
 
 export interface GenerateAPIGatewayEventHandlerOptions {
   waitForEventLoop: boolean;
@@ -18,6 +26,22 @@ export const defaultGenerateAPIGatewayEventHandlerOptions: GenerateAPIGatewayEve
   {
     waitForEventLoop: true,
   };
+
+/**
+ * Kafka Consumer
+ */   
+        const consumer = kafka.consumer({ groupId: 'mockup-group' });
+        consumer.connect();
+        consumer.subscribe({ topics: ['CUD_API'], fromBeginning: true });
+        consumer.run({
+          eachMessage: async (res: any) => {
+            const logger = setupLogger();
+            logger.info('hurray kafka works');
+            const obj = JSON.parse(JSON.parse(res.value));
+            console.log('res', res, obj)
+            console.log("res_from_kafka", obj?.id, obj?.version);
+          },
+        });
 
 /**
  * generates the glue code around your HandlerCallbacks to ease development
@@ -60,6 +84,25 @@ export function generateAPIGatewayEventHandler<InputType>(
       }
 
       const response = await handler(logger, inputResult.data);
+      /**
+       * Kafka SendMessage for CUD operations
+       */
+      if (requestType !== 'GET') {
+
+        const sendMessage = (key:string, message: string) => {
+          return producer
+            .send({
+              topic: 'CUD_API',
+              messages: [{ key: key, value: message }],
+            })
+            .then(console.log)
+            .catch((e) => console.error(`[example/producer] ${e.message}`, e));
+        };
+        sendMessage(
+          context.functionName,
+          JSON.stringify(response.body)
+        );
+      }
       const endTimeFn = Date.now();
       logger.info(`function execution time ${endTimeFn - startTimeFn}`);
 

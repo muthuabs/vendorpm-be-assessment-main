@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 // eslint-disable-next-line import/no-cycle
 import { Post } from './Post';
-import { calculateAge } from '../util/ageCalulator';
+// import { calculateAge } from '../util/ageCalulator';
+import { AgeTransformer } from './Transformers/ageTransformer';
 
 @Entity()
 export class User {
@@ -14,20 +15,25 @@ export class User {
   @Column()
   lastName: string;
 
-  @Column()
-  birthdate: Date;
+  @Column({
+    transformer: new AgeTransformer()
+  })
+  age: number;
 
-  @OneToMany(
-    () => {
-      return Post;
-    },
-    (post: Post) => {
-      return post.user;
-    }
-  )
+  @OneToMany(() => Post, (item) => item.user)
   posts: Post[];
 
-  public get age(): number {
-    return calculateAge(this.birthdate);
-  }
+  // @OneToMany(
+  //   () => {
+  //     return Post;
+  //   },
+  //   (post: Post) => {
+  //     return post.user;
+  //   }
+  // )
+  // posts: Post[];
+
+  // public get age(): number {
+  //   return calculateAge(this.ageOffset);
+  // }
 }

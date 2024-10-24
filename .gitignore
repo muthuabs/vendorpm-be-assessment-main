@@ -9,3 +9,4 @@ temp/.build/
 database.sqlite
 .tsbuildinfo
 coverage
+.yarn.lock

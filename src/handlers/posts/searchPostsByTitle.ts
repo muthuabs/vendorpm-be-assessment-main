@@ -28,7 +28,7 @@ export async function getPostsByTitle(
   const postRepo = dataSource.getRepository(Post);
   const posts = await postRepo
     .createQueryBuilder('p')
-    .where('p.title like :title', { title: `%${input.keyword}%` })
+    .where('p.title ILIKE :title', { title: `%${input.keyword}%` })
     .getMany();
 
   return jsonResp(200, posts);

@@ -11,11 +11,11 @@ export class alterUserTable1678294444907 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumns('user', [
-      new TableColumn({
-        name: 'birthdate',
-        type: 'timestamp',
-        isNullable: false,
-      }),
+      // new TableColumn({
+      //   name: 'birthdate',
+      //   type: 'timestamp',
+      //   isNullable: false,
+      // }),
 
       new TableColumn({
         name: 'version',
@@ -24,20 +24,20 @@ export class alterUserTable1678294444907 implements MigrationInterface {
         isNullable: false,
       }),
     ]);
-    await queryRunner.dropColumn('user', 'age');
+    // await queryRunner.dropColumn('user', 'age');
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.addColumn(
-      'user',
-      new TableColumn({
-        name: 'age',
-        type: 'int',
-        isNullable: false,
-        default: 24,
-      })
-    );
+    // await queryRunner.addColumn(
+    //   'user',
+    //   new TableColumn({
+    //     name: 'age',
+    //     type: 'int',
+    //     isNullable: false,
+    //     default: 24,
+    //   })
+    // );
 
-    await queryRunner.dropColumns('user', ['birthdate', 'version']);
+    await queryRunner.dropColumns('user', ['version']);
   }
 }

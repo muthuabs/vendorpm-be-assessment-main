@@ -57,7 +57,7 @@ functions:
     events:
       - httpApi:
           path: /users/{userId}/posts
-          method: put
+          method: post
 
   getPostById:
     handler: handler.getPostsByIdHandler

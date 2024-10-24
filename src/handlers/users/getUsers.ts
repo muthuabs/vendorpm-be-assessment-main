@@ -8,7 +8,8 @@ import {
 } from '../../util';
 import { getDataSource } from '../../data-source';
 import { User } from '../../entities/User';
-import { toUserDto } from './userDto';
+// no-need below function
+// import { toUserDto } from './userDto';
 
 export const pageValidator = z
   .object({
@@ -54,9 +55,7 @@ export async function getUsers(
 
   return jsonResp(200, {
     remainingPages,
-    data: users.map((u) => {
-      return toUserDto(u);
-    }),
+    data: users,
   });
 }
 

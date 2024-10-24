@@ -15,12 +15,12 @@ export const updateUsersByIdValidator = z
     userId: z.coerce.number(),
     firstName: z.coerce.string(),
     lastName: z.coerce.string(),
-    birthdate: z.coerce.string(),
+    age: z.coerce.number(),
   })
   .partial({
     firstName: true,
     lastName: true,
-    birthdate: true,
+    age: true,
   })
   .required({
     userId: true,
@@ -50,7 +50,7 @@ export async function updateUsersById(
     ...user,
     firstName: input.firstName || user.firstName,
     lastName: input.lastName || user.lastName,
-    birthdate: input.birthdate || user.birthdate,
+    age: input.age || user.age,
   });
 
   const updatedUser = await userRepo.findOneBy({ id: input.userId });

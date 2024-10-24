@@ -22,12 +22,14 @@ const prodConfig: Partial<DataSourceOptions> = {
   database: process.env.DB_NAME || 'pmvendor',
   migrationsRun: false,
   synchronize: true,
+  logging: true,
+  entities: [User, Post],
 };
 
 const mainConfig: DataSourceOptions = {
   type: 'sqlite',
   database: 'database.sqlite',
-  synchronize: false,
+  synchronize: true,
   logging: false,
   entities: [User, Post],
   // We use dirname here to prevent it attempting to load the ts files after compilation in js mode

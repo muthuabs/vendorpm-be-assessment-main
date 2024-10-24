@@ -7,27 +7,27 @@ export class seedUserData1678294444909 implements MigrationInterface {
     await queryRunner.connection
       .createQueryBuilder()
       .insert()
-      .into('user', ['firstName', 'lastName', 'birthdate'])
+      .into('user', ['firstName', 'lastName', 'age'])
       .values([
         {
           firstName: 'Alice',
           lastName: 'one',
-          birthdate: new Date('2000-01-01'),
+          age: 10,
         },
         {
           firstName: 'Bob',
           lastName: 'two',
-          birthdate: new Date('2000-01-01'),
+          age: 20,
         },
         {
           firstName: 'Candice',
           lastName: 'three',
-          birthdate: new Date('2000-01-01'),
+          age: 33,
         },
         {
           firstName: 'Derek',
           lastName: 'four',
-          birthdate: new Date('2000-01-01'),
+          age: 20,
         },
       ])
       .execute();

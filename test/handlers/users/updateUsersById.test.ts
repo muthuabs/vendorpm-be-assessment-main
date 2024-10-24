@@ -139,7 +139,7 @@ describe('updateUsers', () => {
 
     const result = await updateUsersById(logger, {
       userId: 1,
-      birthdate: '1990-01-01',
+      age: 29,
     });
 
     expect(result).toStrictEqual({

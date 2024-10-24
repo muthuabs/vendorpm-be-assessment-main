@@ -5,6 +5,9 @@ import {
   ManyToOne,
   Unique,
   VersionColumn,
+  JoinColumn,
+  UpdateDateColumn,
+  CreateDateColumn
 } from 'typeorm';
 // eslint-disable-next-line import/no-cycle
 import { User } from './User';
@@ -24,19 +27,26 @@ export class Post {
   @Column()
   body: string;
 
-  @Column()
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
   lastEditedAt: Date;
 
   @VersionColumn()
   version: number;
 
-  @ManyToOne(
-    () => {
-      return User;
-    },
-    (user) => {
-      return user.posts;
-    }
-  )
+  @ManyToOne((type) => User)
+  @JoinColumn({ name: "userId", referencedColumnName: "id" })
   user: User;
+
+  // @ManyToOne(
+  //   () => {
+  //     return User;
+  //   },
+  //   (user) => {
+  //     return user.posts;
+  //   }
+  // )
+  // user: User;
 }
