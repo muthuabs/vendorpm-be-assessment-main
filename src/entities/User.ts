@@ -16,11 +16,18 @@ export class User {
   lastName: string;
 
   @Column({
-    transformer: new AgeTransformer()
+    transformer: new AgeTransformer(),
   })
   age: number;
 
-  @OneToMany(() => Post, (item) => item.user)
+  @OneToMany(
+    () => {
+      return Post;
+    },
+    (item) => {
+      return item.user;
+    }
+  )
   posts: Post[];
 
   // @OneToMany(

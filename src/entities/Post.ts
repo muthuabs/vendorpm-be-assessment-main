@@ -7,7 +7,7 @@ import {
   VersionColumn,
   JoinColumn,
   UpdateDateColumn,
-  CreateDateColumn
+  CreateDateColumn,
 } from 'typeorm';
 // eslint-disable-next-line import/no-cycle
 import { User } from './User';
@@ -36,8 +36,10 @@ export class Post {
   @VersionColumn()
   version: number;
 
-  @ManyToOne((type) => User)
-  @JoinColumn({ name: "userId", referencedColumnName: "id" })
+  @ManyToOne((type) => {
+    return User;
+  })
+  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
   user: User;
 
   // @ManyToOne(

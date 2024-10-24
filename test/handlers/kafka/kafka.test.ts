@@ -2,9 +2,9 @@ import { closeDataSource } from '../../../src/data-source';
 import { createPostsHandler } from '../../../src/handlers';
 
 import { setupLogger } from '../../../src/util/logger';
-import kafkaMockup from '../../../src/util/kafkaMockup';
+import KafkaMockup from '../../../src/util/kafkaMockup';
 
-const kafka = new kafkaMockup({
+const kafka = new KafkaMockup({
     clientId: 'my-app',
     brokers: ['localhost:9092'], // Replace with your Kafka brokers
 });
